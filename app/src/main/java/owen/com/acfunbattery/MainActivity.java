@@ -1,11 +1,13 @@
 package owen.com.acfunbattery;
 
 import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar) Toolbar mToolBar;
     @Bind(R.id.tv_batteryLevel) TextView mTvBatteryLevel;
     @Bind(R.id.tv_powerInfo) TextView mTvPowerInfo;
+    @Bind(R.id.iv_img) ImageView mIvAvatar;
 
     private int mBatteryVoltage;
     private int mBatteryTemperature;
@@ -61,7 +64,35 @@ public class MainActivity extends AppCompatActivity {
         int batteryLeve = event.getLevel();
         int batteryScale = event.getScale();
 
-        mTvBatteryLevel.setText(String.format(getString(R.string.batteryLevel), (batteryLeve / batteryScale * 100)));
+        int batteryLevel = (int) (1.0 * batteryLeve / batteryScale * 100);
+
+        mTvBatteryLevel.setText(String.format(getString(R.string.batteryLevel), batteryLevel));
+        updateImageByBatteryLevel(batteryLevel);
+    }
+
+    /**
+     * 根据电量显示不同的图片
+     */
+    private void updateImageByBatteryLevel(int batteryLevel) {
+        if (batteryLevel >= 90) {
+            mIvAvatar.setImageResource(R.drawable.ac20);
+        } else if (batteryLevel >= 85) {
+            mIvAvatar.setImageResource(R.drawable.ac13);
+        } else if (batteryLevel >= 75) {
+            mIvAvatar.setImageResource(R.drawable.ac10);
+        } else if (batteryLevel >= 60) {
+            mIvAvatar.setImageResource(R.drawable.ac30);
+        } else if (batteryLevel >= 45) {
+            mIvAvatar.setImageResource(R.drawable.ac34);
+        } else if (batteryLevel >= 30) {
+            mIvAvatar.setImageResource(R.drawable.ac22);
+        } else if (batteryLevel >= 15) {
+            mIvAvatar.setImageResource(R.drawable.ac35);
+        } else if (batteryLevel >= 5) {
+            mIvAvatar.setImageResource(R.drawable.ac46);
+        } else {
+            mIvAvatar.setImageResource(R.drawable.ac53);
+        }
     }
 
     /**
@@ -76,12 +107,26 @@ public class MainActivity extends AppCompatActivity {
      * 供电方式
      */
     public void onEvent(BatteryPluggedEvent event) {
-        if (event.getState() == 0) {
-            mTvPowerInfo.setText(R.string.plugged_by_battery);
-        } else if (event.getState() != -1) {
-            mTvPowerInfo.setText(R.string.plugged_by_usb);
-        } else {
-            mTvPowerInfo.setText(R.string.unknow_plugged);
+        switch (event.getState()) {
+            case 0:
+                mTvPowerInfo.setText(R.string.plugged_by_battery);
+                break;
+
+            case BatteryManager.BATTERY_PLUGGED_AC:
+                mTvPowerInfo.setText(R.string.plugged_by_ac);
+                break;
+
+            case BatteryManager.BATTERY_PLUGGED_USB:
+                mTvPowerInfo.setText(R.string.plugged_by_usb);
+                break;
+
+            case BatteryManager.BATTERY_PLUGGED_WIRELESS:
+                mTvPowerInfo.setText(R.string.plugged_by_wireless);
+                break;
+
+            default:
+                mTvPowerInfo.setText(R.string.unknow_plugged);
+                break;
         }
     }
 
