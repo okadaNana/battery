@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Ac充电</string>
+    <string name="tv_powerinfo_battery">电池供电</string>
+</resources>

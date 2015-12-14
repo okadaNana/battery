@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="owen.com.acfunbattery.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_batteryLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textSize="100sp"
+        android:textStyle="bold"
+        tools:text="87%" />
+
+    <TextView
+        android:id="@+id/tv_powerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_batteryLevel"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        tools:text="@string/tv_powerinfo_battery" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        tools:src="@drawable/ac01" />
+
+</RelativeLayout>
