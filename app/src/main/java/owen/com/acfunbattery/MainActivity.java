@@ -61,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
      * 电量
      */
     public void onEvent(BatteryLevelEvent event) {
-        int batteryLeve = event.getLevel();
+        int batteryLevel = event.getLevel();
         int batteryScale = event.getScale();
 
-        int batteryLevel = (int) (1.0 * batteryLeve / batteryScale * 100);
+        int batteryLevelNum = (int) (1.0 * batteryLevel / batteryScale * 100);
 
-        mTvBatteryLevel.setText(String.format(getString(R.string.batteryLevel), batteryLevel));
+        mTvBatteryLevel.setText(String.format(getString(R.string.batteryLevel), batteryLevelNum));
         updateImageByBatteryLevel(batteryLevel);
     }
 
