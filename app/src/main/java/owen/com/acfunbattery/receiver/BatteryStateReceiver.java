@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import de.greenrobot.event.EventBus;
 import owen.com.acfunbattery.event.BatteryInfoEvent;
 import owen.com.acfunbattery.event.BatteryLevelEvent;
+import owen.com.acfunbattery.event.BatteryPluggedEvent;
 
 /**
  * Created by Owen on 2015/12/14.
@@ -25,6 +26,9 @@ public class BatteryStateReceiver extends BroadcastReceiver {
         EventBus.getDefault().post(new BatteryLevelEvent(
                 intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1),
                 intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)));
+
+        EventBus.getDefault().post(new BatteryPluggedEvent(
+                intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)));
     }
 
 

@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import owen.com.acfunbattery.event.BatteryInfoEvent;
 import owen.com.acfunbattery.event.BatteryLevelEvent;
+import owen.com.acfunbattery.event.BatteryPluggedEvent;
 import owen.com.acfunbattery.receiver.BatteryStateReceiver;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(BatteryInfoEvent event) {
         mBatteryVoltage = event.getVoltage();
         mBatteryTemperature = event.getTemperature();
+    }
+
+    /**
+     * 供电方式
+     */
+    public void onEvent(BatteryPluggedEvent event) {
+        if (event.getState() == 0) {
+            mTvPowerInfo.setText(R.string.plugged_by_battery);
+        } else if (event.getState() != -1) {
+            mTvPowerInfo.setText(R.string.plugged_by_usb);
+        } else {
+            mTvPowerInfo.setText(R.string.unknow_plugged);
+        }
     }
 
 }

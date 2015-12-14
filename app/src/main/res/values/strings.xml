@@ -3,4 +3,7 @@
     <string name="tv_powerinfo_battery">电池供电</string>
     <string name="powerInfo">电压：%1$.2fV, 温度：%2$.2f℃</string>
     <string name="batteryLevel">%1$d%%</string>
+    <string name="plugged_by_battery">电池供电</string>
+    <string name="unknow_plugged">未知供电方式</string>
+    <string name="plugged_by_usb">USB供电</string>
 </resources>
